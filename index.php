@@ -30,7 +30,27 @@ function json_table_plugin_shortcode() {
           return $element['info']['rating'];
       }, $data_filter), SORT_DESC, $data_filter);
       
-    print_r($data_filter);
+    
+    //list head
+    $html .= "<div class=\"d-none d-sm-block heading text-center \" >";
+    $html .= "<div class=\"row\">";
+    $html .= "<div class=\"col\">";
+    $html .= "<p>Casino</p>";
+    $html .= "</div>";
+    $html .= "<div class=\"col\">";
+    $html .= "<p>Bonus</p>";
+    $html .= "</div>";
+    $html .= "<div class=\"col\">";
+    $html .= "<p>Features</p>";
+    $html .= "</div>";
+    $html .= "<div class=\"col\">";
+    $html .= "<p>Play</p>";
+    $html .= "</div>";
+    $html .= "</div>";
+    $html .= "</div>";
+    //end list head
+    
+    return $html;
 }
 
 add_shortcode('json_table', 'json_table_plugin_shortcode');
