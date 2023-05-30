@@ -21,9 +21,6 @@ function json_table_plugin_shortcode() {
     
     //get reviews only for 575 key
     $data_filter = $data['toplists']['575'];
-
-    //get reviews only for 575 key
-    $data_filter = $data['toplists']['575'];
     
     //sort array with the rating value in descending mode
     array_multisort(array_map(function($element) {
@@ -49,7 +46,11 @@ function json_table_plugin_shortcode() {
     $html .= "</div>";
     $html .= "</div>";
     //end list head
-    
+
+    //iterate items
+    foreach ($data_filter as $item) {
+            print_r($item);
+    }
     return $html;
 }
 
