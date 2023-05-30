@@ -49,7 +49,13 @@ function json_table_plugin_shortcode() {
 
     //iterate items
     foreach ($data_filter as $item) {
-            print_r($item);
+        print_r("Rating: {$item['info']['rating']} <br>");
+        print_r($item['info']['features']);
+        print_r("<br/> Brand id: {$item['brand_id']} <br/>");
+        print_r("Logo url: {$item['logo']}<br/>");
+        print_r("Play url: {$item['play_url']}<br/>");
+        print_r("Terms and conditions: {$item['terms_and_conditions']}<br/><br/>");
+
     }
     return $html;
 }
