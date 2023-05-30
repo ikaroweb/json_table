@@ -35,5 +35,11 @@ function json_table_plugin_shortcode() {
 
 add_shortcode('json_table', 'json_table_plugin_shortcode');
 
+//import boostrap and font-awesome css
+function wpbootstrap_enqueue_styles() {
+    wp_enqueue_style( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css' );
+    wp_enqueue_style('fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+}
 
 ?>
