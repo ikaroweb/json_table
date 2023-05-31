@@ -9,14 +9,34 @@ Author: Ikaroweb
 // Function to fetch the data from the JSON and generate the table
 function json_table_plugin_shortcode() {
 
-    // Get data from url JSON file
-    $json_data = file_get_contents('https://tema.intouchdesign.it/data.json');
+    //execute the curl to get json data from api
+    $curl = curl_init();
     
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://tema.intouchdesign.it/api/data',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => $json_data,
+        CURLOPT_HTTPHEADER => array(
+        'authorization: key-Ayrn&64352nfhZ!urm',
+        'Content-Type: application/json',
+        ),
+    ));
+    
+    $json_data = curl_exec($curl);
+    
+    curl_close($curl);
+
     $data = json_decode( $json_data, true );
     
     // Check if JSON decoding was successful
     if (!$data) {
-        return '<p>Errore nella decodifica del file JSON.</p>';
+        return '<p>Error decoding JSON file.</p>';
     }
     
     //get reviews only for 575 key
@@ -29,7 +49,7 @@ function json_table_plugin_shortcode() {
       
     
     //list head
-    $html .= "<div class=\"d-none d-sm-block heading text-center \" >";
+    $html .= "<div class=\"d-none d-sm-block heading text-center\">";
     $html .= "<div class=\"row\">";
     $html .= "<div class=\"col\">";
     $html .= "<p>Casino</p>";
