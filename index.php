@@ -89,4 +89,14 @@ function wpbootstrap_enqueue_styles() {
 
 }
 
+add_action( 'wp_enqueue_scripts', 'wpbootstrap_enqueue_styles' );
+
+//import the style.css file
+function callback_for_setting_up_scripts() {
+    wp_register_style( 'raketech_json', plugins_url( 'css/style.css' , __FILE__ ) );    
+    wp_enqueue_style( 'raketech_json' );
+}
+
+add_action( 'wp_enqueue_scripts', 'callback_for_setting_up_scripts' );
+
 ?>
