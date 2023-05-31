@@ -69,14 +69,51 @@ function json_table_plugin_shortcode() {
 
     //iterate items
     foreach ($data_filter as $item) {
-        print_r("Rating: {$item['info']['rating']} <br>");
-        print_r($item['info']['features']);
-        print_r("<br/> Brand id: {$item['brand_id']} <br/>");
-        print_r("Logo url: {$item['logo']}<br/>");
-        print_r("Play url: {$item['play_url']}<br/>");
-        print_r("Terms and conditions: {$item['terms_and_conditions']}<br/><br/>");
+        //get rating and generate stars with font-awesome
+        $stars = "";
+        
+        for($i = 0; $i < $item['info']['rating']; $i++){            
+            $stars .= "<i class=\"fa-solid fa-star\" style=\"color: #ffd500;\"></i>";
+        }
+        
+        //iterate features and create the list
+        $features = "";
+        foreach($item['info']['features'] as $feature) {
+             $features .= "<li class=\"list-group-item features\"><i class=\"fa-solid fa-check\"></i> $feature </li>";  
+        } 
+        
+        $html .= "<div class=\"row mb-3 mt-3\">";
 
-    }
+        //1st column show logo e review link
+        $html .= "<div class=\"col-lg-3 col-md-6 col-12 text-center mb-3\">";
+        $html .= '<a target="_blank" rel="noopener noreferrer" href="https://site_url/'.$item['brand_id'] .'"><div><img src="' . $item['logo'] . '" class="easeload" onload="this.style.opacity=1"></div></a><br/><a target="_blank" rel="noopener noreferrer"  class="review_link" href="https://site_url/' . $item['brand_id'] . '"/>Review</a>';
+        $html .= "</div>";
+        
+        //2nd column show bonus info
+        $html .= "<div class=\"col-lg-3 col-md-6 col-6 text-center\">";
+        $html .= $stars .'<br/><p class="bonus">' . $item['info']['bonus'] . '</p>';
+        $html .= "</div>";
+        
+        //3rd column show features list
+        $html .= "<div class=\"col-lg-3 col-md-6 col-6\">";
+        $html .= $features;
+        $html .= "</div>";
+        
+        //4th column show play button and T&C
+        $html .= "<div class=\"col-lg-3 col-md-6 col-12 text-center\">";
+        $html .= '<a target="_blank" rel="noopener noreferrer" href="' . $item['play_url'] . '" class="btn btn-success btn_play btn-lg">PLAY NOW</a><br/><br/>'. str_replace("<a ", '<a target="_blank rel="noopener noreferrer" ' , $item['terms_and_conditions']);
+        $html .= "</div>";
+        
+        $html .= "</div>";
+        
+        // line separator
+        $html .= "<hr style=\"height:3px;background-color:#000;\">";
+        //end iterate
+    } //end foreach
+    
+    //close main div
+    $html .= "</div>";
+    
     return $html;
 }
 
